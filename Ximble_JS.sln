@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ximble_JS", "Ximble_JS\Ximble_JS.csproj", "{62420A35-BB3B-4DA1-B2EB-B25C8A97CD66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ximble_JS.Tests", "Ximble_JS.Tests\Ximble_JS.Tests.csproj", "{8C3FCF75-3F15-4BC7-A668-00C66BB8E0A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62420A35-BB3B-4DA1-B2EB-B25C8A97CD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62420A35-BB3B-4DA1-B2EB-B25C8A97CD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62420A35-BB3B-4DA1-B2EB-B25C8A97CD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62420A35-BB3B-4DA1-B2EB-B25C8A97CD66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C3FCF75-3F15-4BC7-A668-00C66BB8E0A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C3FCF75-3F15-4BC7-A668-00C66BB8E0A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C3FCF75-3F15-4BC7-A668-00C66BB8E0A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C3FCF75-3F15-4BC7-A668-00C66BB8E0A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D539CFD-84AE-41B4-9793-E983515D22F6}
+	EndGlobalSection
+EndGlobal

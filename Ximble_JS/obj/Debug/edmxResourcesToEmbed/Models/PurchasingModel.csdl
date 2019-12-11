@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AdventureWorksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ProductVendor">
+    <Key>
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="BusinessEntityID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="BusinessEntityID" Type="Int32" Nullable="false" />
+    <Property Name="AverageLeadTime" Type="Int32" Nullable="false" />
+    <Property Name="StandardPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="LastReceiptCost" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="LastReceiptDate" Type="DateTime" Precision="3" />
+    <Property Name="MinOrderQty" Type="Int32" Nullable="false" />
+    <Property Name="MaxOrderQty" Type="Int32" Nullable="false" />
+    <Property Name="OnOrderQty" Type="Int32" />
+    <Property Name="UnitMeasureCode" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Vendor" Relationship="Self.FK_ProductVendor_Vendor_BusinessEntityID" FromRole="ProductVendor" ToRole="Vendor" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderDetail">
+    <Key>
+      <PropertyRef Name="PurchaseOrderID" />
+      <PropertyRef Name="PurchaseOrderDetailID" />
+    </Key>
+    <Property Name="PurchaseOrderID" Type="Int32" Nullable="false" />
+    <Property Name="PurchaseOrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="OrderQty" Type="Int16" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="LineTotal" Type="Decimal" Precision="19" Scale="4" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="ReceivedQty" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="RejectedQty" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="StockedQty" Type="Decimal" Precision="9" Scale="2" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="PurchaseOrderHeader" Relationship="Self.FK_PurchaseOrderDetail_PurchaseOrderHeader_PurchaseOrderID" FromRole="PurchaseOrderDetail" ToRole="PurchaseOrderHeader" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderHeader">
+    <Key>
+      <PropertyRef Name="PurchaseOrderID" />
+    </Key>
+    <Property Name="PurchaseOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RevisionNumber" Type="Byte" Nullable="false" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="VendorID" Type="Int32" Nullable="false" />
+    <Property Name="ShipMethodID" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ShipDate" Type="DateTime" Precision="3" />
+    <Property Name="SubTotal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="TaxAmt" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Freight" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="TotalDue" Type="Decimal" Precision="19" Scale="4" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK_PurchaseOrderDetail_PurchaseOrderHeader_PurchaseOrderID" FromRole="PurchaseOrderHeader" ToRole="PurchaseOrderDetail" />
+    <NavigationProperty Name="ShipMethod" Relationship="Self.FK_PurchaseOrderHeader_ShipMethod_ShipMethodID" FromRole="PurchaseOrderHeader" ToRole="ShipMethod" />
+    <NavigationProperty Name="Vendor" Relationship="Self.FK_PurchaseOrderHeader_Vendor_VendorID" FromRole="PurchaseOrderHeader" ToRole="Vendor" />
+  </EntityType>
+  <EntityType Name="ShipMethod">
+    <Key>
+      <PropertyRef Name="ShipMethodID" />
+    </Key>
+    <Property Name="ShipMethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShipBase" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="ShipRate" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="PurchaseOrderHeaders" Relationship="Self.FK_PurchaseOrderHeader_ShipMethod_ShipMethodID" FromRole="ShipMethod" ToRole="PurchaseOrderHeader" />
+  </EntityType>
+  <EntityType Name="Vendor">
+    <Key>
+      <PropertyRef Name="BusinessEntityID" />
+    </Key>
+    <Property Name="BusinessEntityID" Type="Int32" Nullable="false" />
+    <Property Name="AccountNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreditRating" Type="Byte" Nullable="false" />
+    <Property Name="PreferredVendorStatus" Type="Boolean" Nullable="false" />
+    <Property Name="ActiveFlag" Type="Boolean" Nullable="false" />
+    <Property Name="PurchasingWebServiceURL" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ProductVendors" Relationship="Self.FK_ProductVendor_Vendor_BusinessEntityID" FromRole="Vendor" ToRole="ProductVendor" />
+    <NavigationProperty Name="PurchaseOrderHeaders" Relationship="Self.FK_PurchaseOrderHeader_Vendor_VendorID" FromRole="Vendor" ToRole="PurchaseOrderHeader" />
+  </EntityType>
+  <Association Name="FK_ProductVendor_Vendor_BusinessEntityID">
+    <End Role="Vendor" Type="Self.Vendor" Multiplicity="1" />
+    <End Role="ProductVendor" Type="Self.ProductVendor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendor">
+        <PropertyRef Name="BusinessEntityID" />
+      </Principal>
+      <Dependent Role="ProductVendor">
+        <PropertyRef Name="BusinessEntityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseOrderDetail_PurchaseOrderHeader_PurchaseOrderID">
+    <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="1" />
+    <End Role="PurchaseOrderDetail" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrderHeader">
+        <PropertyRef Name="PurchaseOrderID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderDetail">
+        <PropertyRef Name="PurchaseOrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseOrderHeader_ShipMethod_ShipMethodID">
+    <End Role="ShipMethod" Type="Self.ShipMethod" Multiplicity="1" />
+    <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShipMethod">
+        <PropertyRef Name="ShipMethodID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderHeader">
+        <PropertyRef Name="ShipMethodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseOrderHeader_Vendor_VendorID">
+    <End Role="Vendor" Type="Self.Vendor" Multiplicity="1" />
+    <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendor">
+        <PropertyRef Name="BusinessEntityID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderHeader">
+        <PropertyRef Name="VendorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProductionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ProductVendors" EntityType="Self.ProductVendor" />
+    <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetail" />
+    <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeader" />
+    <EntitySet Name="ShipMethods" EntityType="Self.ShipMethod" />
+    <EntitySet Name="Vendors" EntityType="Self.Vendor" />
+    <AssociationSet Name="FK_ProductVendor_Vendor_BusinessEntityID" Association="Self.FK_ProductVendor_Vendor_BusinessEntityID">
+      <End Role="Vendor" EntitySet="Vendors" />
+      <End Role="ProductVendor" EntitySet="ProductVendors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseOrderDetail_PurchaseOrderHeader_PurchaseOrderID" Association="Self.FK_PurchaseOrderDetail_PurchaseOrderHeader_PurchaseOrderID">
+      <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+      <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseOrderHeader_ShipMethod_ShipMethodID" Association="Self.FK_PurchaseOrderHeader_ShipMethod_ShipMethodID">
+      <End Role="ShipMethod" EntitySet="ShipMethods" />
+      <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseOrderHeader_Vendor_VendorID" Association="Self.FK_PurchaseOrderHeader_Vendor_VendorID">
+      <End Role="Vendor" EntitySet="Vendors" />
+      <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
